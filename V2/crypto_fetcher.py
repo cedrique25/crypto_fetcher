@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import simpledialog
 
-def on_search():
+def on_search(event=None):
     """Handle the search action when the button is clicked or Enter is pressed."""
     # Get the input from the entry box
     coins_input = entry.get()
@@ -109,11 +109,6 @@ def get_crypto_data(coins):
                     results.append(f"If {investment_amount_php:,.0f} PHP was invested right now based on the market cap of {format_market_cap(future_market_cap)}, "
                                    f"the ROI would be: {format_currency(future_value_usd)} USD ~ {format_php_currency(future_value_php)}\n")
                 
-                # Brief description of the coin
-                description = coin_data.get('description', 'No description available.')
-                results.append(f"Description: {description[:200]}...\n")  # Truncated to 200 characters
-                results.append("=================================================\n")
-                
                 results.append("=================================================\n")
             else:
                 results.append(f"Coin '{coin}' not found.\n")
@@ -154,7 +149,7 @@ def format_market_cap(market_cap):
         return f"${market_cap}"
 
 def format_supply(supply):
-    """Format the supply with commas."""
+    """Format the supply with commas."""    
     return f"{supply:,}" if supply else "N/A"
 
 def projected_price(market_cap, circulating_supply):
@@ -163,35 +158,42 @@ def projected_price(market_cap, circulating_supply):
         return market_cap / circulating_supply
     return 0
 
-def format_currency(value):
-    """Format currency with commas."""
-    return f"${value:,.2f}"
+def format_currency(amount):
+    """Format the currency amount with commas for USD."""
+    return f"${amount:,.2f}"
 
-def format_php_currency(value):
-    """Format PHP currency with commas."""
-    return f"₱{value:,.0f}"
+def format_php_currency(amount):
+    """Format the PHP currency amount with commas."""
+    return f"₱{amount:,.0f}"
 
-# Create the GUI
+# Setting up the main application window
 root = tk.Tk()
-root.title("Cryptocurrency Info")
+root.title("Crypto Fetcher by emokid")
 
-# Create the search entry
-entry = tk.Entry(root, width=50)
-entry.pack(pady=10)
+# Configuring the input frame
+input_frame = tk.Frame(root)
+input_frame.pack(pady=10)
 
-# Bind the Enter key to the search function
-entry.bind("<Return>", lambda event: on_search())
+# Creating the label and entry box for cryptocurrency input
+label = tk.Label(input_frame, text="Enter Crypto Coin (Symbol):")
+label.pack(side=tk.LEFT)  # Position label on the left
 
-# Create the search button
+entry = tk.Entry(input_frame, width=30)
+entry.pack(side=tk.LEFT)  # Position entry box next to label
+
+# Creating the search button
 search_button = tk.Button(root, text="Search", command=on_search)
 search_button.pack(pady=10)
 
-# Create a scrolled text area for output
-output_text = scrolledtext.ScrolledText(root, width=100, height=30)
-output_text.pack(pady=10)
+# Creating a scrolled text area for output
+output_text = scrolledtext.ScrolledText(root, width=80, height=30)
+output_text.pack(padx=10, pady=10)
 
-# Focus on the search entry
+# Set focus on entry box
 entry.focus()
 
-# Start the GUI event loop
+# Bind the Enter key to the search function
+root.bind('<Return>', on_search)
+
+# Start the application
 root.mainloop()

@@ -1,0 +1,14 @@
+V2:
+
+
+- updated the input bar on "Enter crypto coin"
+- updated the portion of "Projected ROI" to have an input box where you could input your desired investment money instead of assuming its always 10,000 PHP
+- updated some texts on the portion of "Projected ROI"
+- update labels
+- change name of the app on the upper part portion of the logo
+
+
+V1:
+
+- first version of the crypto fetcher 
+- with portable exe
