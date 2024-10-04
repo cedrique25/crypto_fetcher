@@ -38,12 +38,13 @@ Welcome to **Crypto Fetcher**! This tool is designed to fetch cryptocurrency inf
 
 
 💻 Usage
-Run the application:
+1. Run the application:
 
-Copy code
-```bash
-python main.py
-Enter the cryptocurrency symbol to fetch its information and ROI predictions.
+2. Copy code
+   ```bash
+    python main.py
+
+3. Enter the cryptocurrency symbol to fetch its information and ROI predictions.
 
 🌐 Contributing
 Contributions are welcome! If you have suggestions for improvements, please create an issue or submit a pull request.
