@@ -106,7 +106,7 @@ def get_crypto_data(coins):
                     future_value_php = multiplier * investment_amount_php
                     future_value_usd = future_value_php / conversion_rate
 
-                    results.append(f"If {investment_amount_php:,.0f} PHP was invested right now based on the market cap of {format_market_cap(future_market_cap)}, "
+                    results.append(f"If {investment_amount_php:,.0f} PHP was invested right now based on the market cap of {format_market_cap(future_market_cap)},\n"
                                    f"the ROI would be: {format_currency(future_value_usd)} USD ~ {format_php_currency(future_value_php)}\n")
                 
                 results.append("=================================================\n")
@@ -140,7 +140,7 @@ def get_market_cap_intervals(current_market_cap):
                 40_000_000_000, 45_000_000_000]
 
 def format_market_cap(market_cap):
-    """Format the market cap for readability."""
+    """Format the market cap for readability."""    
     if market_cap >= 1_000_000_000:
         return f"${market_cap / 1_000_000_000:.1f} Billion".rstrip(".0")
     elif market_cap >= 1_000_000:
@@ -153,47 +153,42 @@ def format_supply(supply):
     return f"{supply:,}" if supply else "N/A"
 
 def projected_price(market_cap, circulating_supply):
-    """Calculate the projected price based on future market cap and circulating supply."""
+    """Calculate the projected price based on future market cap and circulating supply."""    
     if circulating_supply > 0:
         return market_cap / circulating_supply
     return 0
 
 def format_currency(amount):
-    """Format the currency amount with commas for USD."""
+    """Format currency with commas and 2 decimal places."""
     return f"${amount:,.2f}"
 
 def format_php_currency(amount):
-    """Format the PHP currency amount with commas."""
-    return f"₱{amount:,.0f}"
+    """Format PHP currency with commas."""
+    return f"{amount:,.0f} PHP"
 
-# Setting up the main application window
+# Create the main application window
 root = tk.Tk()
 root.title("Crypto Fetcher by emokid")
 
-# Configuring the input frame
-input_frame = tk.Frame(root)
-input_frame.pack(pady=10)
+# Create a frame for the input
+frame = tk.Frame(root)
+frame.pack(pady=10)
 
-# Creating the label and entry box for cryptocurrency input
-label = tk.Label(input_frame, text="Enter Crypto Coin (Symbol):")
-label.pack(side=tk.LEFT)  # Position label on the left
+# Create a label for the input box
+label = tk.Label(frame, text="Enter Crypto Coin:")
+label.pack(side=tk.LEFT)
 
-entry = tk.Entry(input_frame, width=30)
-entry.pack(side=tk.LEFT)  # Position entry box next to label
+# Create an input entry box
+entry = tk.Entry(frame, width=30)
+entry.pack(side=tk.LEFT, padx=5)
 
-# Creating the search button
+# Create a search button
 search_button = tk.Button(root, text="Search", command=on_search)
-search_button.pack(pady=10)
+search_button.pack(pady=5)
 
-# Creating a scrolled text area for output
-output_text = scrolledtext.ScrolledText(root, width=80, height=30)
-output_text.pack(padx=10, pady=10)
-
-# Set focus on entry box
-entry.focus()
-
-# Bind the Enter key to the search function
-root.bind('<Return>', on_search)
+# Create a scrolled text area for output
+output_text = scrolledtext.ScrolledText(root, width=80, height=20, wrap=tk.WORD)
+output_text.pack(pady=10)
 
 # Start the application
 root.mainloop()
